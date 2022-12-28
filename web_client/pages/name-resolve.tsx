@@ -4,16 +4,21 @@ import Layout from '../components/Layout'
 import Setting from '../setting';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
+import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
+import Tooltip from 'react-bootstrap/Tooltip';
 import Alert from 'react-bootstrap/Alert';
 import { NameResolverResponse } from '../common/interface';
 
 const title = `Let's 名前解決 👍`;
+const copy_before_text = 'copy to clipboard';
+const copy_after_text = 'copied 💞💞💞';
 
 const AboutPage = () => {
 
   let [domain, setDomain] = useState('google.com');
   let [address, setAddress] = useState(null as string | null);
   let [error, setError] = useState(null as string | null);
+  let [tooltip_comment, setTooltipComment] = useState(copy_before_text as string);
 
   function DomainIsVaid(): boolean {
     const doman_pattern = /^[a-zA-Z0-9]+([a-zA-Z0-9-]*[a-zA-Z0-9]+)*\.[a-zA-Z0-9]+([a-zA-Z0-9-]*[a-zA-Z0-9]+)*$/;
@@ -40,6 +45,21 @@ const AboutPage = () => {
     }
   }
 
+  function CopyToClipboard() {
+    if (address === null) {
+      return;
+    }
+    navigator.clipboard.writeText(address)
+    .then(async () => {
+      setTooltipComment(copy_after_text);
+      await new Promise(resolve => setTimeout(resolve, 1000));
+      setTooltipComment(copy_before_text);
+    })
+    .catch((err) => {
+      setTooltipComment(err.toString());
+    });
+  }
+
   return (
     <Layout title={title}>
       <div id='NameResolve'>
@@ -56,7 +76,13 @@ const AboutPage = () => {
         {
           address !== null &&
           <Alert variant="info">
-            <p>IP Address: {address}</p>
+            <div>IP Address: </div>
+            <OverlayTrigger
+              placement="top"
+              overlay={<Tooltip>{tooltip_comment}</Tooltip>}
+            >
+              <Button variant="outline-primary" onClick={CopyToClipboard}>{address}</Button>
+            </OverlayTrigger>
           </Alert>
         }
         {
