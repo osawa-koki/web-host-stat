@@ -52,6 +52,7 @@ func Start() {
 
 		api.GET("/name-resolver", name_resolver)
 		api.GET("/lookup-host", lookup_host)
+		api.GET("/port-scan", port_scan)
 
 		debug := api.Group("/debug")
 		{

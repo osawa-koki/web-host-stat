@@ -73,6 +73,147 @@ const docTemplate = `{
                     }
                 }
             }
+        },
+        "/api/lookup-host": {
+            "get": {
+                "description": "ホスト検索用のAPI",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "ドメイン名",
+                        "name": "domain",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/app.LookupHostResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/app.LookupHostResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/app.LookupHostResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/name-resolver": {
+            "get": {
+                "description": "名前解決用のAPI",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "ドメイン名",
+                        "name": "domain",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/app.NameResolverResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/app.NameResolverResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/app.NameResolverResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/port-scan": {
+            "get": {
+                "description": "ポートスキャン用のAPI",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "ホスト名",
+                        "name": "host",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "integer",
+                        "description": "開始ポート番号",
+                        "name": "from",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "integer",
+                        "description": "終了ポート番号",
+                        "name": "to",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "integer",
+                        "description": "スキャン時間(秒) | 1-60(default: 5)",
+                        "name": "waittime",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/app.PortscanResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/app.PortscanResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/app.PortscanResponse"
+                        }
+                    }
+                }
+            }
         }
     },
     "definitions": {
@@ -84,6 +225,60 @@ const docTemplate = `{
                 },
                 "method": {
                     "type": "string"
+                }
+            }
+        },
+        "app.LookupHostResponse": {
+            "type": "object",
+            "properties": {
+                "address": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "domain": {
+                    "type": "string"
+                },
+                "message": {
+                    "type": "string"
+                }
+            }
+        },
+        "app.NameResolverResponse": {
+            "type": "object",
+            "properties": {
+                "address": {
+                    "type": "string"
+                },
+                "domain": {
+                    "type": "string"
+                },
+                "message": {
+                    "type": "string"
+                }
+            }
+        },
+        "app.PortscanResponse": {
+            "type": "object",
+            "properties": {
+                "from": {
+                    "type": "integer"
+                },
+                "host": {
+                    "type": "string"
+                },
+                "message": {
+                    "type": "string"
+                },
+                "open": {
+                    "type": "array",
+                    "items": {
+                        "type": "integer"
+                    }
+                },
+                "to": {
+                    "type": "integer"
                 }
             }
         }
