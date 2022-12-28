@@ -64,7 +64,7 @@ const LookupHostPage = () => {
         <p>名前解決と異なり、複数のIPアドレスが検索可能です。</p>
         <div id='LookupHostForm'>
           <FloatingLabel label="Domain">
-            <Form.Control type="text" value={domain} onInput={(e) => {setDomain((e.currentTarget as HTMLInputElement).value)}} />
+            <Form.Control type="text" value={domain} onInput={(e) => {setAddresses([]); setDomain((e.currentTarget as HTMLInputElement).value);}} />
           </FloatingLabel>
           <Button disabled={DomainIsValid() === false} onClick={Solve}>Solve {DomainIsValid() ? '🤖' : '😈'}</Button>
         </div>
