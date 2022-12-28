@@ -1,4 +1,49 @@
+definitions:
+  app.DebugResponse:
+    properties:
+      message:
+        type: string
+      method:
+        type: string
+    type: object
 info:
   contact: {}
-paths: {}
+paths:
+  /api/debug/ping/:
+    delete:
+      consumes:
+      - application/json
+      description: テスト用APIの詳細
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/app.DebugResponse'
+    get:
+      consumes:
+      - application/json
+      description: テスト用APIの詳細
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/app.DebugResponse'
+    post:
+      consumes:
+      - application/json
+      description: テスト用APIの詳細
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/app.DebugResponse'
+    put:
+      consumes:
+      - application/json
+      description: テスト用APIの詳細
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/app.DebugResponse'
 swagger: "2.0"
