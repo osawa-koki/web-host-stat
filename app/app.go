@@ -36,6 +36,7 @@ func Start() {
 	router.StaticFile("/lookup-host", "./web/lookup-host.html")
 	router.StaticFile("/port-scan", "./web/port-scan.html")
 	router.Static("/_next", "./web/_next")
+	router.Static("/static", "./web/static")
 
 	if isProd {
 		// 本番環境

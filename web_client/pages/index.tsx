@@ -10,7 +10,7 @@ const IndexPage = () => (
     <div id='Index'>
       <div id="IndexHead">
         <h1>{title}</h1>
-        <img src={`${Setting.basePath}/tako.png`} alt="Logo" />
+        <img src={`${Setting.basePath}/static/tako.png`} alt="Logo" />
       </div>
       <div id='IndexContents'>
         {
