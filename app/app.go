@@ -46,17 +46,16 @@ func Start() {
 
 		// CORSの設定
 		router.Use(cors.New(cors.Config{
-			// アクセスを許可したいアクセス元
 			AllowOrigins: []string {
 				"*",
 			},
-			// アクセスを許可したいHTTPメソッド(以下の例だとPUTやDELETEはアクセスできません)
 			AllowMethods: []string{
 				"GET",
 				"POST",
+				"PUT",
+				"DELETE",
 				"OPTIONS",
 			},
-			// 許可したいHTTPリクエストヘッダ
 			AllowHeaders: []string{
 				"Access-Control-Allow-Credentials",
 				"Access-Control-Allow-Headers",
