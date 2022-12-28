@@ -61,6 +61,46 @@
                     }
                 }
             }
+        },
+        "/api/name-resolver": {
+            "get": {
+                "description": "名前解決用のAPI",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "ドメイン名",
+                        "name": "domain",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/app.NameResolverResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/app.NameResolverResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/app.NameResolverResponse"
+                        }
+                    }
+                }
+            }
         }
     },
     "definitions": {
@@ -71,6 +111,20 @@
                     "type": "string"
                 },
                 "method": {
+                    "type": "string"
+                }
+            }
+        },
+        "app.NameResolverResponse": {
+            "type": "object",
+            "properties": {
+                "address": {
+                    "type": "string"
+                },
+                "domain": {
+                    "type": "string"
+                },
+                "message": {
                     "type": "string"
                 }
             }

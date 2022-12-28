@@ -6,6 +6,15 @@ definitions:
       method:
         type: string
     type: object
+  app.NameResolverResponse:
+    properties:
+      address:
+        type: string
+      domain:
+        type: string
+      message:
+        type: string
+    type: object
 info:
   contact: {}
 paths:
@@ -46,4 +55,30 @@ paths:
           description: OK
           schema:
             $ref: '#/definitions/app.DebugResponse'
+  /api/name-resolver:
+    get:
+      consumes:
+      - application/json
+      description: 名前解決用のAPI
+      parameters:
+      - description: ドメイン名
+        in: query
+        name: domain
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/app.NameResolverResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/app.NameResolverResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/app.NameResolverResponse'
 swagger: "2.0"
