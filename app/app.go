@@ -42,7 +42,7 @@ func Start() {
 		// 開発環境
 		fmt.Println("Running in development mode")
 		gin.SetMode(gin.DebugMode)
-		// SetCORS(router)
+		SetCORS(router)
 		url := ginSwagger.URL("http://localhost:80/swagger/doc.json")
 		router.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler, url))
 	}
@@ -50,7 +50,7 @@ func Start() {
 	api := router.Group("/api")
 	{
 
-		api.GET("/name-resolver", name_resolver)
+		api.GET("/name-resolve", name_resolver)
 		api.GET("/lookup-host", lookup_host)
 		api.GET("/port-scan", port_scan)
 
