@@ -49,6 +49,10 @@ func Start() {
 
 	api := router.Group("/api")
 	{
+
+		api.GET("/name-resolver", name_resolver)
+		api.GET("/lookup-host", lookup_host)
+
 		debug := api.Group("/debug")
 		{
 			debug.GET("/ping", debug_get)

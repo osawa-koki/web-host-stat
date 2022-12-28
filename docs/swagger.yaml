@@ -6,6 +6,17 @@ definitions:
       method:
         type: string
     type: object
+  app.LookupHostResponse:
+    properties:
+      address:
+        items:
+          type: string
+        type: array
+      domain:
+        type: string
+      message:
+        type: string
+    type: object
   app.NameResolverResponse:
     properties:
       address:
@@ -55,6 +66,32 @@ paths:
           description: OK
           schema:
             $ref: '#/definitions/app.DebugResponse'
+  /api/lookup-host:
+    get:
+      consumes:
+      - application/json
+      description: ホスト検索用のAPI
+      parameters:
+      - description: ドメイン名
+        in: query
+        name: domain
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/app.LookupHostResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/app.LookupHostResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/app.LookupHostResponse'
   /api/name-resolver:
     get:
       consumes:

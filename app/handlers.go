@@ -46,3 +46,44 @@ func name_resolver(c *gin.Context) {
 		c.JSON(200, response)
 	}
 }
+
+type LookupHostRequest struct {
+	Domain    string `form:"domain"`
+}
+type LookupHostResponse struct {
+	Address []string `json:"address"`
+	Message string `json:"message"`
+	Domain string `json:"domain"`
+}
+
+// @description ホスト検索用のAPI
+// @version 1.0
+// @accept application/json
+// @Produce  application/json
+// @Param domain query string true "ドメイン名"
+// @Success 200 {object} LookupHostResponse
+// @Failure 400 {object} LookupHostResponse
+// @Failure 500 {object} LookupHostResponse
+// @router /api/lookup-host [get]
+func lookup_host(c *gin.Context) {
+	var lookupResolver LookupHostRequest
+	if err := c.ShouldBindQuery(&lookupResolver); err != nil {
+		response := LookupHostResponse{
+			Message: err.Error(),
+		}
+		c.JSON(400, response)
+		return
+	}
+	if addrs, err := net.LookupHost(lookupResolver.Domain); err != nil {
+		response := LookupHostResponse{
+			Message: err.Error(),
+		}
+		c.JSON(500, response)
+	} else {
+		response := LookupHostResponse{
+			Address: addrs,
+			Domain: lookupResolver.Domain,
+		}
+		c.JSON(200, response)
+	}
+}
