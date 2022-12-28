@@ -1,7 +1,16 @@
-FROM golang:1.19-bullseye
+FROM node:19-bullseye-slim AS WEB_CLIENT
+WORKDIR /usr/src/app
+COPY ./web_client ./web_client
+RUN cd web_client && yarn install && yarn build
+
+
+
+FROM golang:1.19-bullseye AS WEB_SERVER
 
 EXPOSE 80
 WORKDIR /app
+
+COPY --from=WEB_CLIENT /usr/src/app/web_client/dist ./web
 
 # pre-copy/cache go.mod for pre-downloading dependencies and only redownloading them in subsequent builds if they change
 COPY go.mod go.sum ./
