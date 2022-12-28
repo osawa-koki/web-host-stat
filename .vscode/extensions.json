@@ -1,0 +1,10 @@
+{
+  "recommendations": [
+    "editorconfig.editorconfig",
+    "github.copilot",
+    "mhutchie.git-graph",
+    "eamodio.gitlens",
+    "golang.go",
+    "davidanson.vscode-markdownlint"
+  ]
+}

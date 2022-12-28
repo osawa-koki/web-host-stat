@@ -1,0 +1,177 @@
+definitions:
+  app.DebugResponse:
+    properties:
+      message:
+        type: string
+      method:
+        type: string
+    type: object
+  app.LookupHostResponse:
+    properties:
+      address:
+        items:
+          type: string
+        type: array
+      domain:
+        type: string
+      message:
+        type: string
+    type: object
+  app.NameResolverResponse:
+    properties:
+      address:
+        type: string
+      domain:
+        type: string
+      message:
+        type: string
+    type: object
+  app.PortscanResponse:
+    properties:
+      from:
+        type: integer
+      host:
+        type: string
+      message:
+        type: string
+      open:
+        items:
+          type: integer
+        type: array
+      to:
+        type: integer
+    type: object
+info:
+  contact: {}
+paths:
+  /api/debug/ping/:
+    delete:
+      consumes:
+      - application/json
+      description: テスト用APIの詳細
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/app.DebugResponse'
+    get:
+      consumes:
+      - application/json
+      description: テスト用APIの詳細
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/app.DebugResponse'
+    post:
+      consumes:
+      - application/json
+      description: テスト用APIの詳細
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/app.DebugResponse'
+    put:
+      consumes:
+      - application/json
+      description: テスト用APIの詳細
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/app.DebugResponse'
+  /api/lookup-host:
+    get:
+      consumes:
+      - application/json
+      description: ホスト検索用のAPI
+      parameters:
+      - description: ドメイン名
+        in: query
+        name: domain
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/app.LookupHostResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/app.LookupHostResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/app.LookupHostResponse'
+  /api/name-resolver:
+    get:
+      consumes:
+      - application/json
+      description: 名前解決用のAPI
+      parameters:
+      - description: ドメイン名
+        in: query
+        name: domain
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/app.NameResolverResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/app.NameResolverResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/app.NameResolverResponse'
+  /api/port-scan:
+    get:
+      consumes:
+      - application/json
+      description: ポートスキャン用のAPI
+      parameters:
+      - description: ホスト名
+        in: query
+        name: host
+        required: true
+        type: string
+      - description: 開始ポート番号
+        in: query
+        name: from
+        required: true
+        type: integer
+      - description: 終了ポート番号
+        in: query
+        name: to
+        required: true
+        type: integer
+      - description: 'スキャン時間(秒) | 1-60(default: 5)'
+        in: query
+        name: waittime
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/app.PortscanResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/app.PortscanResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/app.PortscanResponse'
+swagger: "2.0"

@@ -14,14 +14,27 @@ GoとNext.jsで実現したい。
 
 ```shell
 # デバグ実行
-go run main.go
+$Env:APP_ENV="dev" && swag init && go run main.go
 ```
 
 Dockerを使用するなら、、、  
 
 ```shell
 docker build -t web-host-stat .
-docker run -p 8080:80 -it --rm --name my-web-host-stat web-host-stat
+docker run -p 80:80 -it --rm --name my-web-host-stat web-host-stat
+
+# 一行で書くと、、、
+docker build -t web-host-stat . && docker run -p 80:80 -it --rm --name my-web-host-stat web-host-stat
+```
+
+Dockerでの開発用(サーバのみ)実行は、、、
+
+```shell
+docker build -t web-host-stat-dev -f Dockerfile.dev .
+docker run -p 80:80 -it --rm --name my-web-host-stat-dev web-host-stat-dev
+
+# 一行でビルド&実行を行う
+docker build -t web-host-stat-dev -f Dockerfile.dev . && docker run -p 80:80 -it --rm --name my-web-host-stat-dev web-host-stat-dev
 ```
 
 ## デプロイ設定
