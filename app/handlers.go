@@ -47,6 +47,8 @@ func name_resolver(c *gin.Context) {
 	}
 }
 
+// ========== ========== ========== ========== ==========
+
 type LookupHostRequest struct {
 	Domain    string `form:"domain"`
 }
