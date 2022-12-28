@@ -7,7 +7,8 @@ WORKDIR /app
 COPY go.mod go.sum ./
 RUN go mod download && go mod verify
 
-COPY . .
+COPY go.mod go.sum main.go ./
+COPY ./app ./app
 # 実行可能プログラム名をappという名前すると、実行時にディレクトリ名と重複しているため、エラーとなる。
 RUN go build -a -x -o main main.go
 
