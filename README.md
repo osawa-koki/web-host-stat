@@ -24,6 +24,13 @@ docker build -t web-host-stat .
 docker run -p 8080:80 -it --rm --name my-web-host-stat web-host-stat
 ```
 
+Dockerでの開発用(サーバのみ)実行は、、、
+
+```shell
+docker build -t web-host-stat-dev -f Dockerfile.dev .
+docker run -p 8080:80 -it --rm --name my-web-host-stat-dev web-host-stat-dev
+```
+
 ## デプロイ設定
 
 | キー | バリュー |
