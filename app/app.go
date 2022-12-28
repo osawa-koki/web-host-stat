@@ -41,32 +41,10 @@ func Start() {
 	} else {
 		// 開発環境
 		fmt.Println("Running in development mode")
+		gin.SetMode(gin.DebugMode)
+		// SetCORS(router)
 		url := ginSwagger.URL("http://localhost:80/swagger/doc.json")
 		router.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler, url))
-
-		// CORSの設定
-		router.Use(cors.New(cors.Config{
-			AllowOrigins: []string {
-				"*",
-			},
-			AllowMethods: []string{
-				"GET",
-				"POST",
-				"PUT",
-				"DELETE",
-				"OPTIONS",
-			},
-			AllowHeaders: []string{
-				"Access-Control-Allow-Credentials",
-				"Access-Control-Allow-Headers",
-				"Content-Type",
-				"Content-Length",
-				"Accept-Encoding",
-				"Authorization",
-			},
-			AllowCredentials: true,
-			MaxAge: 24 * time.Hour,
-		}))
 	}
 
 	api := router.Group("/api")
@@ -81,4 +59,30 @@ func Start() {
 	}
 
 	router.Run(origin)
+}
+
+func SetCORS(router *gin.Engine) {
+	// CORSの設定
+	router.Use(cors.New(cors.Config{
+		AllowOrigins: []string {
+			"*",
+		},
+		AllowMethods: []string{
+			"GET",
+			"POST",
+			"PUT",
+			"DELETE",
+			"OPTIONS",
+		},
+		AllowHeaders: []string{
+			"Access-Control-Allow-Credentials",
+			"Access-Control-Allow-Headers",
+			"Content-Type",
+			"Content-Length",
+			"Accept-Encoding",
+			"Authorization",
+		},
+		AllowCredentials: true,
+		MaxAge: 24 * time.Hour,
+	}))
 }
