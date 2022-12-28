@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"net"
 	"os"
+	"time"
 )
 
 func main() {
@@ -34,6 +35,35 @@ func main() {
 		for i, addr := range addrs {
 			fmt.Println(fmt.Sprint("LookupHost addr[", i, "] is ", addr))
 		}
+	}
+
+	{
+		// ポートスキャン
+		ports := []int{}
+		for i := 1; i <= 25; i++ {
+			ports = append(ports, i)
+		}
+
+		open_ports := []int{}
+		closed_ports := []int{}
+
+		for _, port := range ports {
+			go (func(port int) {
+				target := fmt.Sprint(*domain, ":", port)
+				fmt.Printf("Scanning %s.\n", target)
+				conn, err := net.Dial("tcp", target)
+				if err != nil {
+					fmt.Println(fmt.Sprint("Port ", port, " is not open"))
+					closed_ports = append(closed_ports, port)
+				} else {
+					fmt.Println(fmt.Sprint("Port ", port, " is open"))
+					open_ports = append(open_ports, port)
+					conn.Close()
+				}
+			})(port)
+		}
+
+		time.Sleep(60 * time.Second)
 	}
 
 	if success {
