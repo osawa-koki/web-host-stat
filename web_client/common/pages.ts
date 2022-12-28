@@ -26,6 +26,12 @@ const _pages: _Page[] = [
     is_active: true,
   },
   {
+    name: "LookupHost",
+    name_ja: "ホスト検索",
+    path: "/lookup-host",
+    is_active: true,
+  },
+  {
     name: "PortScan",
     name_ja: "ポートスキャン",
     path: "/port-scan",

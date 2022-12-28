@@ -5,4 +5,10 @@ type NameResolverResponse = {
   domain: string;
 }
 
-export type { NameResolverResponse };
+type LookupHostResponse = {
+  address: string[];
+  message: string;
+  domain: string;
+}
+
+export type { NameResolverResponse, LookupHostResponse };

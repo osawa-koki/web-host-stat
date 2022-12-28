@@ -1,0 +1,30 @@
+
+#LookupHost {
+  max-width: 700px;
+  margin-right: auto;
+  margin-left: auto;
+  #LookupHostForm {
+    display: flex;
+    input {
+      width: 25rem;
+      margin-right: 1rem;
+    }
+  }
+  div[role="alert"] {
+    margin-top: 1.5rem;
+    p {
+      margin: 0;
+      padding: 0;
+      display: flex;
+      align-items: center;
+    }
+  }
+  div.alert-info {
+    display: flex;
+    div {
+      display: flex;
+      align-items: center;
+      margin-right: 1rem;
+    }
+  }
+}
