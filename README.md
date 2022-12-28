@@ -23,3 +23,16 @@ Dockerを使用するなら、、、
 docker build -t web-host-stat .
 docker run -p 8080:80 -it --rm --name my-web-host-stat web-host-stat
 ```
+
+## デプロイ設定
+
+| キー | バリュー |
+| ---- | ---- |
+| Name | web-host-stat |
+| Region | Oregon(US West) |
+| Branch | main |
+| Root Directory |  |
+| Environment | Docker |
+| Dockerfile Path | ./Dockerfile |
+| Docker Build Context Directory |  |
+| Docker Command |  |
