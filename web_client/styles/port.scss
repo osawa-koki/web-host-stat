@@ -1,0 +1,25 @@
+
+#Port {
+  #Portlist {
+    .danger-level {
+      &.low {
+        background-color: rgb(245, 245, 255);
+      }
+      &.middle {
+        background-color: rgb(255, 255, 230);
+      }
+      &.high {
+        background-color: rgb(255, 200, 200);
+      }
+    }
+    .protocol {
+      display: flex;
+      div {
+        margin: 0.2rem 0.3rem;
+        padding: 0.2rem 0.3rem;
+        border-radius: 0.2rem;
+        background-color: rgb(245, 245, 245);
+      }
+    }
+  }
+}
