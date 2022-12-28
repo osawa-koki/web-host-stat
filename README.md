@@ -14,7 +14,7 @@ GoとNext.jsで実現したい。
 
 ```shell
 # デバグ実行
-$Env:APP_ENV="dev"; go run main.go
+$Env:APP_ENV="dev" && swag init && go run main.go
 ```
 
 Dockerを使用するなら、、、  
