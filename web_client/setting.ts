@@ -7,6 +7,7 @@ const Setting = {
   isProd,
   title: "Web-Host-Stat",
   basePath: EnvInfo.basePath,
+  apiUri: isProd ? "/api" : "http://localhost:80/api",
 };
 
 export default Setting;
