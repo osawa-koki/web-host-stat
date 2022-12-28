@@ -36,7 +36,6 @@ func Start() {
 		gin.SetMode(gin.ReleaseMode)
 	} else {
 		fmt.Println("Running in development mode")
-		origin = "localhost:80"
 		url := ginSwagger.URL(fmt.Sprintf("http://%s/swagger/doc.json", origin))
 		r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler, url))
 	}
