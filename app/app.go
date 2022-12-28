@@ -32,6 +32,9 @@ func Start() {
 	router.StaticFile("/", "./web/index.html")
 	router.StaticFile("/index", "./web/index.html")
 	router.StaticFile("/about", "./web/about.html")
+	router.StaticFile("/name-resolve", "./web/name-resolve.html")
+	router.StaticFile("/lookup-host", "./web/lookup-host.html")
+	router.StaticFile("/port-scan", "./web/port-scan.html")
 	router.Static("/_next", "./web/_next")
 
 	if isProd {
