@@ -1,5 +1,8 @@
 
 #NameResolve {
+  max-width: 700px;
+  margin-right: auto;
+  margin-left: auto;
   #NameResolveForm {
     display: grid;
     grid-template-columns: minmax(7rem, 10rem) minmax(15rem, 20rem) 7rem;
