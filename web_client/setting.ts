@@ -5,7 +5,7 @@ const isProd = process.env.NODE_ENV === "production";
 
 const Setting = {
   isProd,
-  title: "My Next App",
+  title: "Web-Host-Stat",
   basePath: EnvInfo.basePath,
 };
 

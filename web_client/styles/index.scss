@@ -1,0 +1,42 @@
+
+#Index {
+  #IndexHead {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    h1 {
+      margin-top: 1rem;
+      font-size: 2rem;
+    }
+    img {
+      margin-top: 1rem;
+      width: 150px;
+      border-radius: 50%;
+      border: 1px lightgray solid;
+    }
+  }
+  #IndexContents {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 3rem;
+    a {
+      font-size: 1.2rem;
+      color: #0E6DFE;
+      text-decoration: none;
+      margin-right: 1rem;
+      margin-bottom: 1rem;
+      padding-right: 1rem;
+      border-right: 1px lightgray solid;
+      &:last-child {
+        margin-right: 0;
+        margin-bottom: 0;
+        padding-right: 0;
+        border-right: none;
+      }
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+}

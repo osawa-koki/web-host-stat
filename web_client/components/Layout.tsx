@@ -15,7 +15,7 @@ const Layout = ({ children, title = Setting.title }: Props) => (
       <title>{title}</title>
       <meta charSet="utf-8" />
       <meta name="viewport" content="initial-scale=1.0, width=device-width" />
-      <link rel="shortcut icon" href={`${Setting.basePath}/favicon.ico`} type="image/x-icon" />
+      <link rel="shortcut icon" href={`${Setting.basePath}/tako.ico`} type="image/x-icon" />
     </Head>
     <header>
       <nav>
@@ -32,6 +32,7 @@ const Layout = ({ children, title = Setting.title }: Props) => (
       {children}
     </main>
     <footer>
+      Web-Host-Stat (by <a href="https://github.com/osawa-koki" target="_blank">@osawa-koki</a>)
     </footer>
   </div>
 );
