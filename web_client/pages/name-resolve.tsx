@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import Link from 'next/link';
 import Layout from '../components/Layout'
 import Setting from '../setting';
 import Button from 'react-bootstrap/Button';
@@ -13,7 +12,7 @@ const title = `Let's 名前解決 👍`;
 const copy_before_text = 'copy to clipboard';
 const copy_after_text = 'copied 💞💞💞';
 
-const AboutPage = () => {
+const NameResolvePage = () => {
 
   let [domain, setDomain] = useState('google.com');
   let [address, setAddress] = useState(null as string | null);
@@ -94,6 +93,6 @@ const AboutPage = () => {
       </div>
     </Layout>
   )
-}
+};
 
-export default AboutPage
+export default NameResolvePage;
