@@ -27,12 +27,12 @@ func Start() {
 
 	fmt.Println("Starting app..." + os.Getenv("APP_ENV"))
 
-	r := gin.Default()
+	router := gin.Default()
 
-	r.StaticFile("/", "./web/index.html")
-	r.StaticFile("/index", "./web/index.html")
-	r.StaticFile("/about", "./web/about.html")
-	r.Static("/_next", "./web/_next")
+	router.StaticFile("/", "./web/index.html")
+	router.StaticFile("/index", "./web/index.html")
+	router.StaticFile("/about", "./web/about.html")
+	router.Static("/_next", "./web/_next")
 
 	if isProd {
 		// 本番環境
@@ -42,10 +42,10 @@ func Start() {
 		// 開発環境
 		fmt.Println("Running in development mode")
 		url := ginSwagger.URL("http://localhost:80/swagger/doc.json")
-		r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler, url))
+		router.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler, url))
 
 		// CORSの設定
-		r.Use(cors.New(cors.Config{
+		router.Use(cors.New(cors.Config{
 			// アクセスを許可したいアクセス元
 			AllowOrigins: []string {
 				"*",
@@ -70,11 +70,16 @@ func Start() {
 		}))
 	}
 
-	r.GET("/ping", func(c *gin.Context) {
-		c.JSON(200, gin.H{
-			"message": "pong",
-		})
-	})
+	api := router.Group("/api")
+	{
+		debug := api.Group("/debug")
+		{
+			debug.GET("/ping", debug_get)
+			debug.POST("/ping", debug_post)
+			debug.PUT("/ping", debug_put)
+			debug.DELETE("/ping", debug_delete)
+		}
+	}
 
-	r.Run(origin)
+	router.Run(origin)
 }
