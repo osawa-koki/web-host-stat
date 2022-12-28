@@ -14,7 +14,7 @@ GoとNext.jsで実現したい。
 
 ```shell
 # デバグ実行
-go run main.go
+SET APP_ENV=dev; go run main.go
 ```
 
 Dockerを使用するなら、、、  
@@ -28,7 +28,7 @@ Dockerでの開発用(サーバのみ)実行は、、、
 
 ```shell
 docker build -t web-host-stat-dev -f Dockerfile.dev .
-docker run -p 8080:80 -it --rm --name my-web-host-stat-dev web-host-stat-dev
+docker run -p 8080:8080 -it --rm --name my-web-host-stat-dev web-host-stat-dev
 ```
 
 ## デプロイ設定
