@@ -7,6 +7,7 @@ import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Tooltip from 'react-bootstrap/Tooltip';
 import Alert from 'react-bootstrap/Alert';
 import { NameResolverResponse } from '../common/interface';
+import Spinner from 'react-bootstrap/Spinner';
 
 const title = `Let's 名前解決 👍`;
 const copy_before_text = 'copy to clipboard';
@@ -18,16 +19,18 @@ const NameResolvePage = () => {
   let [address, setAddress] = useState(null as string | null);
   let [error, setError] = useState(null as string | null);
   let [tooltip_comment, setTooltipComment] = useState(copy_before_text as string);
+  let [solving, setSolving] = useState(false);
 
   function DomainIsVaid(): boolean {
     const doman_pattern = /^[a-zA-Z0-9]+([a-zA-Z0-9-]*[a-zA-Z0-9]+)*\.[a-zA-Z0-9]+([a-zA-Z0-9-]*[a-zA-Z0-9]+)*$/;
     return doman_pattern.test(domain);
   }
 
-  function Solve() {
+  async function Solve() {
     try {
+      setSolving(true);
       const uri = `${Setting.apiUri}/name-resolve?domain=${domain}`;
-      fetch(uri)
+      await fetch(uri)
       .then(res => res.json())
       .then((response: NameResolverResponse) => {
         const ip = response.address;
@@ -41,6 +44,8 @@ const NameResolvePage = () => {
     } catch (ex) {
       setAddress(null);
       setError(ex.toString());
+    } finally {
+      setSolving(false);
     }
   }
 
@@ -51,12 +56,18 @@ const NameResolvePage = () => {
     navigator.clipboard.writeText(address)
     .then(async () => {
       setTooltipComment(copy_after_text);
-      await new Promise(resolve => setTimeout(resolve, 1000));
+      await new Promise(resolve => setTimeout(resolve, Setting.copyWaitTime));
       setTooltipComment(copy_before_text);
     })
     .catch((err) => {
       setTooltipComment(err.toString());
     });
+  }
+
+  function Reset() {
+    setAddress(null);
+    setError(null);
+    setTooltipComment(copy_before_text);
   }
 
   return (
@@ -66,11 +77,18 @@ const NameResolvePage = () => {
         <p>名前解決してみませんか。</p>
         <div id='NameResolveForm'>
           <Form.Label>Enter Domain</Form.Label>
-          <Form.Control type="text" value={domain} onInput={(e) => {setAddress(null); setDomain((e.target as HTMLInputElement).value);}} />
+          <Form.Control type="text" value={domain} onInput={(e) => {Reset(); setDomain((e.target as HTMLInputElement).value);}} />
           <Form.Text>
             Guess the IP address of the domain name!
           </Form.Text>
-          <Button disabled={DomainIsVaid() === false} onClick={Solve}>Solve {DomainIsVaid() ? '🤖' : '😈'}</Button>
+          <Button disabled={DomainIsVaid() === false || solving === true} onClick={() => {Reset(); Solve();}}>
+            {
+              solving === true ?
+              <><Spinner animation="grow" variant="light" size="sm" />&nbsp;Solving</>
+              :
+              <>Solve&nbsp;{DomainIsVaid() ? '🤖' : '😈'}</>
+            }
+          </Button>
         </div>
         {
           address !== null &&

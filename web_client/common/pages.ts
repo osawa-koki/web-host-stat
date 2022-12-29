@@ -36,7 +36,13 @@ const _pages: _Page[] = [
     name_ja: "ポートスキャン",
     path: "/port-scan",
     is_active: true,
-  }
+  },
+  {
+    name: "Port",
+    name_ja: "ポート一覧",
+    path: "/port",
+    is_active: true,
+  },
 ];
 
 const pages = _pages.filter((page) => page.is_active);

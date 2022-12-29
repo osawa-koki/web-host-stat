@@ -153,9 +153,9 @@ func port_scan(c *gin.Context) {
 		c.JSON(400, response)
 		return
 	}
-	if to - from > 100 {
+	if to - from > 1024 {
 		response := PortscanResponse{
-			Message: "to - from > 100",
+			Message: "to - from > 1024",
 		}
 		c.JSON(400, response)
 		return

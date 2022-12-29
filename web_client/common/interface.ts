@@ -11,4 +11,12 @@ type LookupHostResponse = {
   domain: string;
 }
 
-export type { NameResolverResponse, LookupHostResponse };
+type PortscanResponse = {
+  host: string;
+  from: number;
+  to: number;
+  open: number[];
+  message: string;
+}
+
+export type { NameResolverResponse, LookupHostResponse, PortscanResponse };
