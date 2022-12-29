@@ -84,7 +84,7 @@ const NameResolvePage = () => {
           <Button disabled={DomainIsVaid() === false || solving === true} onClick={() => {setAddress(null); Solve();}}>
             {
               solving === true ?
-              <><Spinner animation="border" variant="primary" size="sm" />&nbsp;Solving</>
+              <><Spinner animation="grow" variant="light" size="sm" />&nbsp;Solving</>
               :
               <>Solve&nbsp;{DomainIsVaid() ? '🤖' : '😈'}</>
             }
