@@ -34,6 +34,11 @@ const LookupHostPage = () => {
       .then(res => res.json())
       .then((response: LookupHostResponse) => {
         const ip = response.address;
+        if (ip === null) {
+          setAddresses([]);
+          setError('No IP address found');
+          return;
+        }
         setAddresses(ip);
         setError(null);
       })
