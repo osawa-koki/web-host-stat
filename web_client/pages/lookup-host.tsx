@@ -53,7 +53,7 @@ const LookupHostPage = () => {
     navigator.clipboard.writeText(text)
     .then(async () => {
       setTooltipComment(copy_after_text);
-      await new Promise(resolve => setTimeout(resolve, 1000));
+      await new Promise(resolve => setTimeout(resolve, Setting.copyWaitTime));
       setTooltipComment(copy_before_text);
     })
     .catch((err: string) => {

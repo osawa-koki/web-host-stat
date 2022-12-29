@@ -8,7 +8,8 @@ const Setting = {
   title: "Web-Host-Stat",
   basePath: EnvInfo.basePath,
   apiUri: isProd ? "/api" : "http://localhost:80/api",
-  domainPattern: /^[\w\d\-\.]+\.[a-z]{2,4}$/
+  domainPattern: /^[\w\d\-\.]+\.[a-z]{2,4}$/,
+  copyWaitTime: 1000,
 };
 
 export default Setting;
