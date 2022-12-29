@@ -34,7 +34,7 @@ const NameResolvePage = () => {
       await fetch(uri)
       .then(res => res.json())
       .then((response: PortscanResponse) => {
-        const open_ports = response.open.sort((a, b) => b - a);
+        const open_ports = response.open.sort((a, b) => a - b);
         if (open_ports === null) {
           setError(response.message);
           return;
