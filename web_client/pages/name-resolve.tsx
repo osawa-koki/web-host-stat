@@ -77,11 +77,11 @@ const NameResolvePage = () => {
         <p>名前解決してみませんか。</p>
         <div id='NameResolveForm'>
           <Form.Label>Enter Domain</Form.Label>
-          <Form.Control type="text" value={domain} onInput={(e) => {setAddress(null); setDomain((e.target as HTMLInputElement).value);}} />
+          <Form.Control type="text" value={domain} onInput={(e) => {Reset(); setDomain((e.target as HTMLInputElement).value);}} />
           <Form.Text>
             Guess the IP address of the domain name!
           </Form.Text>
-          <Button disabled={DomainIsVaid() === false || solving === true} onClick={() => {setAddress(null); Solve();}}>
+          <Button disabled={DomainIsVaid() === false || solving === true} onClick={() => {Reset(); Solve();}}>
             {
               solving === true ?
               <><Spinner animation="grow" variant="light" size="sm" />&nbsp;Solving</>
