@@ -93,7 +93,7 @@ const LookupHostPage = () => {
         {
           addresses.map((address, _) => {
             return (
-              <Alert variant="info">
+              <Alert key={address} variant="info">
                 <div>IP Address: </div>
                 <OverlayTrigger
                   placement="top"
