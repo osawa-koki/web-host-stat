@@ -43,12 +43,6 @@ const _pages: _Page[] = [
     path: "/port",
     is_active: true,
   },
-  {
-    name: "Ping",
-    name_ja: "Ping",
-    path: "/ping",
-    is_active: true,
-  },
 ];
 
 const pages = _pages.filter((page) => page.is_active);
