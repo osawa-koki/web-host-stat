@@ -38,11 +38,11 @@ const LookupHostPage = () => {
         setError(null);
       })
       .catch((err: string) => {
-        setAddresses(null);
+        setAddresses([]);
         setError(err.toString());
       });
     } catch (ex) {
-      setAddresses(null);
+      setAddresses([]);
       setError(ex.toString());
     } finally {
       setSearching(false);
