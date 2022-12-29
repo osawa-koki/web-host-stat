@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Layout from '../components/Layout'
 import Setting from '../setting';
 import Button from 'react-bootstrap/Button';
@@ -8,29 +8,43 @@ import Spinner from 'react-bootstrap/Spinner';
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Tooltip from 'react-bootstrap/Tooltip';
 import Alert from 'react-bootstrap/Alert';
+import ProgressBar from 'react-bootstrap/ProgressBar';
 import { default as port_data, DangerLevel } from '../common/ports';
 import { PortscanResponse } from '../common/interface';
 
 const title = `Let's ポートスキャン 👍`;
+const waittime_min = 3;
+const waittime_max = 60;
 
 const NameResolvePage = () => {
+
+  let interval: NodeJS.Timeout;
 
   let [domain, setDomain] = useState('google.com');
   let [ports, setPorts] = useState([] as number[]);
   let [from, setFrom] = useState(50);
   let [to, setTo] = useState(100);
+  let [waittime, setWaittime] = useState(5);
   let [error, setError] = useState(null as string | null);
   let [scanning, setScanning] = useState(false as boolean);
+  let [timecount, setTimecount] = useState(0 as number);
 
   function DomainIsVaid(): boolean {
     const doman_pattern = /^[a-zA-Z0-9]+([a-zA-Z0-9-]*[a-zA-Z0-9]+)*\.[a-zA-Z0-9]+([a-zA-Z0-9-]*[a-zA-Z0-9]+)*$/;
     return doman_pattern.test(domain);
   }
 
+  useEffect(() => {
+    setTimeout(() => {
+      setTimecount(timecount + 1);
+    }, 1000);
+  }, [timecount]);
+
   async function Scan() {
     try {
       setScanning(true);
-      const uri = `${Setting.apiUri}/port-scan?domain=${domain}&from=${from}&to=${to}`;
+      setTimecount(0);
+      const uri = `${Setting.apiUri}/port-scan?domain=${domain}&from=${from}&to=${to}&waittime=${waittime}`;
       await fetch(uri)
       .then(res => res.json())
       .then((response: PortscanResponse) => {
@@ -51,6 +65,7 @@ const NameResolvePage = () => {
       setError(ex.toString());
     } finally {
       setScanning(false);
+      clearInterval(interval);
     }
   }
 
@@ -78,6 +93,8 @@ const NameResolvePage = () => {
           <FloatingLabel label="Domain">
             <Form.Control type="text" value={domain} onInput={(e) => {setPorts([]); setDomain((e.currentTarget as HTMLInputElement).value);}} />
           </FloatingLabel>
+          <div className='number waittime'>Wait time: '{waittime}' sec</div>
+          <Form.Range className='value waittime' min={waittime_min} max={waittime_max} onInput={(e) => {setPorts([]); setWaittime(parseInt((e.currentTarget as HTMLInputElement).value));}} />
           <div className='number from'>From: </div>
           <Form.Control type="number" className=' value from' value={from} onInput={(e) => {setPorts([]); setFrom(parseInt((e.currentTarget as HTMLInputElement).value));}} />
           <div className='number to'>To: </div>
@@ -91,6 +108,12 @@ const NameResolvePage = () => {
             }
           </Button>
         </div>
+        <div id='PortscanProgress'>
+          {
+            scanning === true &&
+            <ProgressBar striped variant="info" animated now={timecount / waittime * 100} label={`${Math.floor(timecount / waittime * 100)}%`} />
+          }
+        </div>
         <div id='PortscanResult'>
           {
             ports.map((port, _) => {
@@ -99,6 +122,7 @@ const NameResolvePage = () => {
                   <div>Port "{port}" is open.</div>
                   <div>{port_data.map((_port, _) => {return _port.port === port ?
                     <OverlayTrigger
+                      key={_port.port}
                       placement='top'
                       overlay={
                         <Tooltip>{_port.description_ja}</Tooltip>
@@ -106,7 +130,7 @@ const NameResolvePage = () => {
                       >
                         <Button variant="secondary">{_port.description}</Button>
                     </OverlayTrigger>
-                    : <></>})}
+                    : <div key={_port.port}></div>})}
                   </div>
                 </Alert>
               )

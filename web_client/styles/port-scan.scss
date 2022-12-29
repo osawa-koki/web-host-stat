@@ -3,10 +3,18 @@
   #PortscanForm {
     display: grid;
     grid-template-columns: 3rem 7rem 3rem 7rem 3rem 8rem;
-    gap: .5rem;
+    gap: 1rem;
     .form-floating {
       grid-column: 1 / 6;
       grid-row: 1 / 2;
+    }
+    .number.waittime {
+      grid-column: 1 / 3;
+      grid-row: 2 / 3;
+    }
+    .value.waittime {
+      grid-column: 3 / 5;
+      grid-row: 2 / 3;
     }
     .number {
       display: flex;
@@ -15,24 +23,27 @@
     }
     .number.from {
       grid-column: 1 / 2;
-      grid-row: 2 / 3;
+      grid-row: 3 / 4;
     }
     .value.from {
       grid-column: 2 / 3;
-      grid-row: 2 / 3;
+      grid-row: 3 / 4;
     }
     .number.to {
       grid-column: 3 / 4;
-      grid-row: 2 / 3;
+      grid-row: 3 / 4;
     }
     .value.to {
       grid-column: 4 / 5;
-      grid-row: 2 / 3;
+      grid-row: 3 / 4;
     }
     button {
       grid-column: 6 / 7;
-      grid-row: 2 / 3;
+      grid-row: 3 / 4;
     }
+  }
+  #PortscanProgress {
+    margin-top: 3rem;
   }
   #PortscanResult {
     margin-top: 1rem;
