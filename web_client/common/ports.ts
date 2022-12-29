@@ -22,7 +22,7 @@ type Port = {
   system_port: boolean;
 };
 
-const ports = [
+const ports: Port[] = [
   {
     port: 1,
     service: 'tcpmux',
@@ -566,3 +566,5 @@ const ports = [
 ];
 
 export default ports;
+export type { Port };
+export { DangerLevel };
