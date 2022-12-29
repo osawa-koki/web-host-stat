@@ -34,7 +34,7 @@ const NameResolvePage = () => {
       await fetch(uri)
       .then(res => res.json())
       .then((response: PortscanResponse) => {
-        const open_ports = response.open;
+        const open_ports = response.open.sort((a, b) => b - a);
         if (open_ports === null) {
           setError(response.message);
           return;
@@ -82,7 +82,7 @@ const NameResolvePage = () => {
           <Form.Control type="number" className=' value from' value={from} onInput={(e) => {setPorts([]); setFrom(parseInt((e.currentTarget as HTMLInputElement).value));}} />
           <div className='number to'>To: </div>
           <Form.Control type="number" className='value to' value={to} onInput={(e) => {setPorts([]); setTo(parseInt((e.currentTarget as HTMLInputElement).value));}} />
-          <Button disabled={DomainIsVaid() === false || scanning === true} onClick={Scan}>
+          <Button disabled={DomainIsVaid() === false || scanning === true} onClick={() => {setPorts([]); Scan();}}>
             {
               scanning === true ?
               <><Spinner animation="grow" variant="info" size="sm" />&nbsp;Scanning</>
