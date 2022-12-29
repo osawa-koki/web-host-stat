@@ -9,7 +9,7 @@ import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Tooltip from 'react-bootstrap/Tooltip';
 import Alert from 'react-bootstrap/Alert';
 import { default as port_data, DangerLevel } from '../common/ports';
-import { NameResolverResponse, PortscanResponse } from '../common/interface';
+import { PortscanResponse } from '../common/interface';
 
 const title = `Let's ポートスキャン 👍`;
 
