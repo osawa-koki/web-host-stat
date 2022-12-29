@@ -34,7 +34,7 @@ const PortPage = () => (
                   </OverlayTrigger>
                   </td>
                   <td className={`danger-level ${port.danger_level.toString()}`}>{port.danger_level.toString()}</td>
-                  <td className='protocol'>{port.protocol.map((proto) => <div>{proto}</div>)}</td>
+                  <td className='protocol'>{port.protocol.map((proto) => <div key={proto}>{proto}</div>)}</td>
                 </tr>
               ))
             }
