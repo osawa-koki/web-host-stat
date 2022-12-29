@@ -36,6 +36,7 @@ const NameResolvePage = () => {
 
   useEffect(() => {
     setTimeout(() => {
+      if (timecount >= waittime) return;
       setTimecount(timecount + 1);
     }, 1000);
   }, [timecount]);
