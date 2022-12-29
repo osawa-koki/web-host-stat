@@ -38,6 +38,13 @@
     margin-top: 1rem;
     div[role="alert"] {
       margin-top: 1rem;
+      display: flex;
+      justify-content: space-between;
+      div {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
     }
   }
 }

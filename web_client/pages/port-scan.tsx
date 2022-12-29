@@ -96,7 +96,18 @@ const NameResolvePage = () => {
             ports.map((port, _) => {
               return (
                 <Alert key={port} variant={AlertVar(port)}>
-                  Port "{port}" is open. {port_data[port]?.description}
+                  <div>Port "{port}" is open.</div>
+                  <div>{port_data.map((_port, _) => {return _port.port === port ?
+                    <OverlayTrigger
+                      placement='top'
+                      overlay={
+                        <Tooltip>{_port.description_ja}</Tooltip>
+                      }
+                      >
+                        <Button variant="secondary">{_port.description}</Button>
+                    </OverlayTrigger>
+                    : <></>})}
+                  </div>
                 </Alert>
               )
             })
