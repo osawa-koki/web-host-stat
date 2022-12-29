@@ -7,6 +7,7 @@ import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Tooltip from 'react-bootstrap/Tooltip';
 import Alert from 'react-bootstrap/Alert';
 import { NameResolverResponse } from '../common/interface';
+import Spinner from 'react-bootstrap/Spinner';
 
 const title = `Let's 名前解決 👍`;
 const copy_before_text = 'copy to clipboard';
@@ -18,16 +19,18 @@ const NameResolvePage = () => {
   let [address, setAddress] = useState(null as string | null);
   let [error, setError] = useState(null as string | null);
   let [tooltip_comment, setTooltipComment] = useState(copy_before_text as string);
+  let [solving, setSolving] = useState(false);
 
   function DomainIsVaid(): boolean {
     const doman_pattern = /^[a-zA-Z0-9]+([a-zA-Z0-9-]*[a-zA-Z0-9]+)*\.[a-zA-Z0-9]+([a-zA-Z0-9-]*[a-zA-Z0-9]+)*$/;
     return doman_pattern.test(domain);
   }
 
-  function Solve() {
+  async function Solve() {
     try {
+      setSolving(true);
       const uri = `${Setting.apiUri}/name-resolve?domain=${domain}`;
-      fetch(uri)
+      await fetch(uri)
       .then(res => res.json())
       .then((response: NameResolverResponse) => {
         const ip = response.address;
@@ -41,6 +44,8 @@ const NameResolvePage = () => {
     } catch (ex) {
       setAddress(null);
       setError(ex.toString());
+    } finally {
+      setSolving(false);
     }
   }
 
@@ -59,6 +64,12 @@ const NameResolvePage = () => {
     });
   }
 
+  function Reset() {
+    setAddress(null);
+    setError(null);
+    setTooltipComment(copy_before_text);
+  }
+
   return (
     <Layout title={title}>
       <div id='NameResolve'>
@@ -70,7 +81,14 @@ const NameResolvePage = () => {
           <Form.Text>
             Guess the IP address of the domain name!
           </Form.Text>
-          <Button disabled={DomainIsVaid() === false} onClick={Solve}>Solve {DomainIsVaid() ? '🤖' : '😈'}</Button>
+          <Button disabled={DomainIsVaid() === false || solving === true} onClick={() => {setAddress(null); Solve();}}>
+            {
+              solving === true ?
+              <><Spinner animation="border" variant="primary" size="sm" />&nbsp;Solving</>
+              :
+              <>Solve&nbsp;{DomainIsVaid() ? '🤖' : '😈'}</>
+            }
+          </Button>
         </div>
         {
           address !== null &&
