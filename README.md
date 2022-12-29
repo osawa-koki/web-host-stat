@@ -37,6 +37,19 @@ docker run -p 80:80 -it --rm --name my-web-host-stat-dev web-host-stat-dev
 docker build -t web-host-stat-dev -f Dockerfile.dev . && docker run -p 80:80 -it --rm --name my-web-host-stat-dev web-host-stat-dev
 ```
 
+---
+
+以下の2つの同時に実行することで本番環境と同じ環境を構築可能。  
+「$」はカレントディレクトリを、「~」はリポジトリルートを意味する。  
+
+```shell
+# $ ~/
+Env:APP_ENV="dev" && swag init && go run main.go
+
+# $ ~/web_client
+yarn dev
+```
+
 ## デプロイ設定
 
 | キー | バリュー |
